@@ -1,0 +1,24 @@
+<h2>Tareas (incompletas)</h2>
+<% if @items.empty? %>
+	<h3>No hay tareas</h3>
+<% else %>
+	<ul class="list-group">
+		<% @items.each do |item| %>
+			<% if item["done"] == false %>
+				<li class="list-group-item">
+					<ul class="list-inline">
+						<li><p><%= item["title"] %></p></li>
+						<li class="pull-right"><form action="/delete" method="post">
+							<input type="hidden" name="id" value="<%= item['id'] %>">
+							<button class="btn btn-danger" type="submit">Borrar</button>
+						</form></li>
+						<li class="pull-right"><form action="/done" method="post">
+							<input type="hidden" name="id" value="<%= item['id'] %>">
+							<button class="btn btn-success" type="submit">Done</button>
+						</form></li>
+					</ul>
+				</li>
+			<% end %>
+		<% end %>
+	</ul>
+<% end %>
